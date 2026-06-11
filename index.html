@@ -1009,28 +1009,27 @@
   <div class="surface-panel active" id="panel-cli">
     <div>
       <div class="install-step">
-        <div class="install-step-label"><span class="install-step-num">1</span> Download &amp; extract</div>
+        <div class="install-step-label"><span class="install-step-num">1</span> Add the marketplace</div>
         <div class="terminal">
           <div class="terminal-bar">
             <div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div>
           </div>
-          <pre><span class="t-comment"># Download the zip and unzip it</span>
-<span class="t-prompt">$</span> <span class="t-cmd">unzip craigm26-claude-skills-*.zip</span>
-<span class="t-prompt">$</span> <span class="t-cmd">cd craigm26-skills-package</span></pre>
+          <pre><span class="t-comment"># In any Claude Code session</span>
+<span class="t-ember">/plugin marketplace add craigm26/founder-skills</span></pre>
         </div>
       </div>
       <div class="install-step">
-        <div class="install-step-label"><span class="install-step-num">2</span> Copy to skills directory</div>
+        <div class="install-step-label"><span class="install-step-num">2</span> Install the public six</div>
         <div class="terminal">
           <div class="terminal-bar">
             <div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div>
           </div>
-          <pre><span class="t-comment"># Install all 10 skills at once</span>
-<span class="t-prompt">$</span> <span class="t-cmd">mkdir -p ~/.claude/skills</span>
-<span class="t-prompt">$</span> <span class="t-cmd">cp -r skills/* ~/.claude/skills/</span>
-
-<span class="t-comment"># Or install a single skill</span>
-<span class="t-prompt">$</span> <span class="t-cmd">cp -r skills/fable-loop-design ~/.claude/skills/</span></pre>
+          <pre><span class="t-ember">/plugin install session-start@founder-skills</span>
+<span class="t-ember">/plugin install effort@founder-skills</span>
+<span class="t-ember">/plugin install market-validation@founder-skills</span>
+<span class="t-ember">/plugin install build-options@founder-skills</span>
+<span class="t-ember">/plugin install prd@founder-skills</span>
+<span class="t-ember">/plugin install tasks@founder-skills</span></pre>
         </div>
       </div>
       <div class="install-step">
@@ -1039,26 +1038,24 @@
           <div class="terminal-bar">
             <div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div>
           </div>
-          <pre><span class="t-comment"># In any Claude Code session</span>
-<span class="t-ember">/fable-repo-audit</span>
-<span class="t-ember">/fable-orchestrated-feature-dev</span>
-<span class="t-ember">/fable-loop-design</span>
-<span class="t-ember">/market-validation</span>
+          <pre><span class="t-comment"># Start every session with the calibrators</span>
+<span class="t-ember">/session-start</span>
+<span class="t-ember">/effort</span>
 
-<span class="t-comment"># Verify skills are loaded</span>
-<span class="t-prompt">$</span> <span class="t-cmd">ls ~/.claude/skills/</span>
-<span class="t-out">fable-loop-design  fable-orchestrated-feature-dev</span>
-<span class="t-out">fable-org-audit    fable-repo-audit</span>
-<span class="t-out">market-validation  build-options  prd  tasks</span>
-<span class="t-out">tufte-viz          ecosystem-planning</span></pre>
+<span class="t-comment"># Then the chain, as the work demands</span>
+<span class="t-ember">/market-validation</span>
+<span class="t-ember">/build-options</span>
+
+<span class="t-comment"># The six fable-* / craft skills are private —</span>
+<span class="t-comment"># not yet published.</span></pre>
         </div>
       </div>
     </div>
     <div class="install-prose">
       <h4>Claude Code CLI is the primary surface</h4>
-      <p>Skills loaded into <code>~/.claude/skills/</code> are available as slash commands in every Claude Code session. The model reads the skill's <code>SKILL.md</code> on invocation and follows it for the remainder of the session.</p>
-      <p>Skills are <strong>session context</strong>, not persistent rules. Invoke the skill at the start of a session when you need it. You don't need to load all 10 every session — only the ones relevant to the work at hand.</p>
-      <p>For Fable 5 users: the orchestration skills (<code>/fable-orchestrated-feature-dev</code>, <code>/fable-loop-design</code>) work best in Claude Code where you can pass file paths between Fable's plan step and the implementer's execute step.</p>
+      <p>The public six ship as Claude Code <a href="https://code.claude.com/docs/en/plugins" style="color:var(--blue);">plugins</a> via the <a href="https://code.claude.com/docs/en/plugin-marketplaces" style="color:var(--blue);">plugin marketplace</a> — one command to add, one per skill to install. The model reads the skill's <code>SKILL.md</code> on invocation and follows it for the remainder of the session.</p>
+      <p>Skills are <strong>session context</strong>, not persistent rules. Invoke a skill at the start of a session when you need it — only the ones relevant to the work at hand.</p>
+      <p>Per-skill walkthroughs (what each asks, what it produces, what it costs) live on the <a href="https://craigm26.github.io/founder-skills/" style="color:var(--blue);">founder-skills site</a>.</p>
       <div class="callout">
         Tip: The founder chain (<code>/market-validation → /build-options → /prd → /tasks</code>) is designed to run sequentially across sessions. Each skill's output is the next skill's input — save the artifacts between sessions.
       </div>
@@ -1073,11 +1070,9 @@
           <div class="terminal-bar">
             <div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div>
           </div>
-          <pre><span class="t-comment"># Find the skill you want</span>
-<span class="t-prompt">$</span> <span class="t-cmd">cat skills/fable-loop-design/SKILL.md</span>
-
-<span class="t-comment"># Or open it in your editor</span>
-<span class="t-prompt">$</span> <span class="t-cmd">open skills/fable-loop-design/SKILL.md</span></pre>
+          <pre><span class="t-comment"># Fetch a public skill straight from GitHub</span>
+<span class="t-prompt">$</span> <span class="t-cmd">curl -s https://raw.githubusercontent.com/craigm26/\
+  founder-skills/master/plugins/session-start/SKILL.md</span></pre>
         </div>
       </div>
       <div class="install-step">
@@ -1103,8 +1098,8 @@
       <p><strong>Best skills for always-on Desktop instructions:</strong></p>
       <p><code>/session-start</code> — paste this as a persistent instruction so every new conversation opens with the three calibration questions. Works on any surface.</p>
       <p><code>/effort</code> — add alongside session-start so the model always asks about token budget before spending any. Lightweight and universally useful.</p>
-      <p><code>/fable-loop-design</code> — if you design agentic systems, this as a persistent instruction keeps the verifier sub-agent pattern and memory progression top of mind across all conversations.</p>
-      <p><code>/tufte-viz</code> — works well as a persistent instruction if you frequently discuss data visualization. The principles apply whether you're sketching charts or critiquing dashboards.</p>
+      <p><code>/fable-loop-design</code> <em>(private — not yet published)</em> — if you design agentic systems, this as a persistent instruction keeps the verifier sub-agent pattern and memory progression top of mind across all conversations.</p>
+      <p><code>/tufte-viz</code> <em>(private — not yet published)</em> — works well as a persistent instruction if you frequently discuss data visualization. The principles apply whether you're sketching charts or critiquing dashboards.</p>
       <div class="callout">
         The Fable orchestration skills (<code>fable-repo-audit</code>, <code>fable-orchestrated-feature-dev</code>) are less useful in Desktop because they rely on file system access (saving reports to <code>~/.claude/audits/</code>, passing plan file paths). Use Claude Code CLI for those.
       </div>
@@ -1120,12 +1115,12 @@
             <div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div>
           </div>
           <pre><span class="t-comment">// Node.js / TypeScript</span>
-<span class="t-cmd">import</span> { readFileSync } from 'fs'
 <span class="t-cmd">import</span> Anthropic from '@anthropic-ai/sdk'
 
-<span class="t-cmd">const</span> skill = readFileSync(
-  'skills/fable-repo-audit/SKILL.md', 'utf8'
-)
+<span class="t-cmd">const</span> skill = <span class="t-cmd">await</span> (<span class="t-cmd">await</span> fetch(
+  'https://raw.githubusercontent.com/craigm26/founder-skills' +
+  '/master/plugins/session-start/SKILL.md'
+)).text()
 
 <span class="t-cmd">const</span> client = <span class="t-cmd">new</span> Anthropic()
 <span class="t-cmd">const</span> msg = <span class="t-cmd">await</span> client.messages.create({
@@ -1134,7 +1129,7 @@
   system: skill,
   messages: [{
     role: <span class="t-out">'user'</span>,
-    content: <span class="t-out">'Audit the repo at /path/to/repo'</span>
+    content: <span class="t-out">'Start the session.'</span>
   }]
 })</pre>
         </div>
@@ -1144,7 +1139,7 @@
       <h4>Claude API — inject as system prompt</h4>
       <p>Skills are plain markdown — load any <code>SKILL.md</code> as a string and pass it as the <code>system</code> prompt in your API call. The model treats it as its operating instructions for the session.</p>
       <p>For multi-agent pipelines: use <code>/fable-loop-design</code> to design the loop structure, then hard-code the rubric and verifier pattern directly in your Agent() calls rather than loading the skill at runtime — the skill is a design guide, not a runtime dependency.</p>
-      <p>The <code>fable-orchestrated-feature-dev</code> skill's model routing logic (Opus vs Sonnet vs Codex based on token budget) is useful for building your own adaptive pipelines — read the <code>SKILL.md</code> for the routing decision tree.</p>
+      <p>The <code>fable-orchestrated-feature-dev</code> skill's model routing logic (Opus vs Sonnet vs an external executor, based on token budget) is useful for building your own adaptive pipelines — it is private today; the same routing tiers are documented in the public <code>effort</code> skill.</p>
       <div class="callout">
         The founder chain skills (<code>market-validation</code>, <code>build-options</code>) include Python and JavaScript helper scripts in their <code>assets/</code> subdirectories — these run standalone outside the API and produce structured outputs (deck-data.json, decision matrices) that feed into subsequent API calls.
       </div>
