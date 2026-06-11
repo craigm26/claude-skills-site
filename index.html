@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Skills — craigm26</title>
+<meta name="description" content="10 Claude skills for Fable 5 orchestration, founder workflows, data visualization, and ecosystem planning.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #080c10;
+    --surface:   #0f1419;
+    --surface2:  #161d26;
+    --border:    #1e2a38;
+    --border2:   #253040;
+    --text:      #c8d0db;
+    --muted:     #4d6070;
+    --dim:       #2a3848;
+    --ember:     #ff6b2b;
+    --ember-dim: #7a3010;
+    --green:     #39d353;
+    --blue:      #58a6ff;
+    --gold:      #e3b341;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── Grid texture ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Top bar ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    height: 52px;
+    background: rgba(8, 12, 16, 0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--ember); }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── Sections ── */
+  section { position: relative; z-index: 1; }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 120px 48px 72px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(64px, 10vw, 140px);
+    font-weight: 300;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    color: #e8edf2;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.3s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--ember);
+  }
+
+  .hero-body {
+    max-width: 560px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.45s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.55s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--ember);
+    color: #fff;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 13px 24px;
+    text-decoration: none;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .btn-primary:hover { background: #ff8549; transform: translateY(-1px); }
+  .btn-primary svg { flex-shrink: 0; }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border2);
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .btn-ghost:hover { color: var(--text); border-color: var(--text); }
+
+  .hero-stats {
+    position: absolute;
+    right: 48px;
+    bottom: 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: right;
+    opacity: 0;
+    animation: fadeIn 1s 0.8s forwards;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 300;
+    line-height: 1;
+    color: #e8edf2;
+  }
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── Section header ── */
+  .section-header {
+    padding: 80px 48px 48px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+  }
+
+  .section-tag {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ember);
+    flex-shrink: 0;
+    padding-top: 4px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: #e8edf2;
+  }
+
+  /* ── Skill categories ── */
+  .skills-section { border-bottom: 1px solid var(--border); }
+
+  .category-header {
+    padding: 36px 48px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .category-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ember);
+  }
+
+  .category-name {
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  .category-count {
+    margin-left: auto;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+
+  .skill-card {
+    padding: 32px 36px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    transition: background 0.15s;
+    cursor: default;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--ember);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.2s ease;
+  }
+
+  .skill-card:hover { background: var(--surface); }
+  .skill-card:hover::before { transform: scaleY(1); }
+
+  .skill-invoke {
+    display: inline-block;
+    font-size: 11px;
+    color: var(--green);
+    background: rgba(57, 211, 83, 0.06);
+    border: 1px solid rgba(57, 211, 83, 0.15);
+    padding: 3px 10px;
+    margin-bottom: 16px;
+    letter-spacing: 0.04em;
+  }
+
+  .skill-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: #e8edf2;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .skill-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .skill-tag {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--dim);
+    border: 1px solid var(--border2);
+    padding: 2px 8px;
+  }
+
+  /* ── Chain flow ── */
+  .chain-flow {
+    padding: 36px 48px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .chain-step {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-shrink: 0;
+  }
+
+  .chain-box {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    padding: 14px 20px;
+    text-align: center;
+    min-width: 140px;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .chain-box:hover {
+    border-color: var(--ember);
+    background: var(--surface2);
+  }
+
+  .chain-invoke {
+    font-size: 10px;
+    color: var(--green);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .chain-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #e8edf2;
+  }
+
+  .chain-arrow {
+    color: var(--ember);
+    font-size: 16px;
+    padding: 0 12px;
+    flex-shrink: 0;
+  }
+
+  /* ── Install section ── */
+  .install-section {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .surface-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .surface-tab {
+    padding: 20px 48px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .surface-tab.active {
+    color: var(--ember);
+    border-bottom-color: var(--ember);
+  }
+
+  .surface-tab:hover:not(.active) { color: var(--text); }
+
+  .surface-panel {
+    display: none;
+    padding: 48px;
+  }
+  .surface-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+
+  .install-step {
+    margin-bottom: 32px;
+  }
+
+  .install-step-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .install-step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px; height: 18px;
+    background: var(--ember-dim);
+    color: var(--ember);
+    font-size: 9px;
+    flex-shrink: 0;
+  }
+
+  .terminal {
+    background: #020407;
+    border: 1px solid var(--border2);
+    padding: 20px 24px;
+    position: relative;
+    overflow-x: auto;
+  }
+
+  .terminal-bar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .terminal-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .terminal-dot:nth-child(1) { background: #ff5f57; }
+  .terminal-dot:nth-child(2) { background: #febc2e; }
+  .terminal-dot:nth-child(3) { background: #28c840; }
+
+  .terminal pre {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    white-space: pre;
+  }
+
+  .t-prompt { color: var(--green); }
+  .t-cmd { color: var(--text); }
+  .t-comment { color: var(--muted); }
+  .t-out { color: var(--blue); }
+  .t-ember { color: var(--ember); }
+  .t-gold { color: var(--gold); }
+
+  .install-prose {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .install-prose h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #e8edf2;
+    margin-bottom: 12px;
+  }
+
+  .install-prose p { margin-bottom: 14px; }
+
+  .install-prose code {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    padding: 1px 6px;
+    font-size: 11px;
+    color: var(--green);
+  }
+
+  .callout {
+    background: rgba(255, 107, 43, 0.05);
+    border-left: 2px solid var(--ember);
+    padding: 14px 18px;
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── Scenarios ── */
+  .scenarios-section { border-bottom: 1px solid var(--border); }
+
+  .scenarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    border-top: 1px solid var(--border);
+  }
+
+  .scenario-card {
+    padding: 36px 40px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .scenario-situation {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .scenario-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: #e8edf2;
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+
+  .scenario-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+
+  .scenario-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .scenario-skill-badge {
+    font-size: 10px;
+    color: var(--green);
+    background: rgba(57, 211, 83, 0.06);
+    border: 1px solid rgba(57, 211, 83, 0.15);
+    padding: 3px 10px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Download ── */
+  .download-section {
+    padding: 80px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .download-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 300;
+    line-height: 0.95;
+    color: #e8edf2;
+    margin-bottom: 24px;
+  }
+
+  .download-sub {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 36px;
+    max-width: 380px;
+  }
+
+  .download-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 28px;
+  }
+
+  .download-meta-item { }
+  .download-meta-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: #e8edf2;
+    line-height: 1;
+  }
+  .download-meta-key {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .source-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .source-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    transition: background 0.12s, border-color 0.12s;
+    margin-bottom: 1px;
+  }
+  .source-link:hover {
+    background: var(--surface2);
+    border-color: var(--border2);
+  }
+
+  .source-link-left { }
+  .source-link-name {
+    font-size: 12px;
+    color: var(--text);
+    display: block;
+    margin-bottom: 3px;
+  }
+  .source-link-desc {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+  .source-link-arrow {
+    color: var(--ember);
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  /* ── Footer ── */
+  footer {
+    padding: 36px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-left {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+  .footer-left span { color: var(--ember); }
+
+  .footer-right {
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .hero { padding: 100px 24px 60px; }
+    .hero-stats { display: none; }
+    .section-header { padding: 56px 24px 36px; flex-direction: column; gap: 8px; }
+    .category-header, .chain-flow { padding: 24px; }
+    .surface-panel.active { grid-template-columns: 1fr; gap: 32px; }
+    .surface-panel { padding: 28px 24px; }
+    .surface-tab { padding: 16px 24px; }
+    .download-section { grid-template-columns: 1fr; gap: 48px; padding: 56px 24px; }
+    .scenarios-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 28px 24px; }
+    .scenario-card, .skill-card { padding: 28px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <a class="nav-logo" href="#"><span>//</span> claude-skills</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#install">Install</a></li>
+    <li><a href="#scenarios">Scenarios</a></li>
+    <li><a href="#download">Download</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <p class="hero-eyebrow">// claude skills · craigm26 · 2026</p>
+  <h1 class="hero-title">The<br><em>judgment</em><br>layer.</h1>
+  <p class="hero-body">
+    10 Claude skills for Fable 5 orchestration, founder workflows, and craft.
+    Skills sit above Anthropic's execution primitives — /workflow, /loop, Agent() —
+    encoding when to use them, which model to route to, and how to structure the work.
+  </p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="https://github.com/craigm26/claude-skills/releases/latest" id="download-hero">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z"/></svg>
+      Download zip
+    </a>
+    <a class="btn-ghost" href="#skills">Browse skills →</a>
+  </div>
+
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">10</div>
+      <div class="stat-label">Skills</div>
+    </div>
+    <div>
+      <div class="stat-num">3</div>
+      <div class="stat-label">Surfaces</div>
+    </div>
+    <div>
+      <div class="stat-num">4</div>
+      <div class="stat-label">Fable patterns</div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section class="skills-section" id="skills">
+  <div class="section-header reveal">
+    <span class="section-tag">01</span>
+    <h2 class="section-title">The skills</h2>
+  </div>
+
+  <!-- Fable Orchestration -->
+  <div class="category-header reveal">
+    <span class="category-label">Category A</span>
+    <span class="category-name">Fable 5 Orchestration</span>
+    <span class="category-count">4 skills</span>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <span class="skill-invoke">/fable-orchestrated-feature-dev</span>
+      <h3 class="skill-name">Orchestrated<br>Feature Dev</h3>
+      <p class="skill-desc">Fable writes a detailed plan to a .md file. A capable model (Opus 4.8 or Sonnet 4.6) implements it exactly. Fable reviews the output against the spec. Codex /goal fallback when tokens are exhausted. Fable never writes implementation code.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">planning</span>
+        <span class="skill-tag">implementation</span>
+        <span class="skill-tag">review</span>
+        <span class="skill-tag">token-aware</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <span class="skill-invoke">/fable-repo-audit</span>
+      <h3 class="skill-name">Repository<br>Audit</h3>
+      <p class="skill-desc">4-phase principal-level audit: discovery and mapping → evidence-based findings with severity ratings → improvement strategy → task plan with milestones and effort estimates. Output saved to ~/.claude/audits/. Grounded in file paths and line numbers.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">audit</span>
+        <span class="skill-tag">architecture</span>
+        <span class="skill-tag">security</span>
+        <span class="skill-tag">task plan</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <span class="skill-invoke">/fable-org-audit</span>
+      <h3 class="skill-name">Org Integration<br>Audit</h3>
+      <p class="skill-desc">For PlatAtlas orgs: probes 8 live integration dimensions — trace ingest, actor graph, Work Program, GIS/field, hypotheses, billing, intelligence, and robots. Grades each 🟢 🟡 🔴 ⚫ and produces a prioritized gap list. Memory accumulates verified org patterns across runs.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">platatlas</span>
+        <span class="skill-tag">health check</span>
+        <span class="skill-tag">live apis</span>
+        <span class="skill-tag">memory</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <span class="skill-invoke">/fable-loop-design</span>
+      <h3 class="skill-name">Loop<br>Design</h3>
+      <p class="skill-desc">Design self-correction loops using a rubric and an independent verifier sub-agent (not self-critique — the grader runs in a fresh context window). Cross-session memory progression: fail → investigate → verify → distill → consult. Based on Anthropic's internal Fable 5 research.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">self-correction</span>
+        <span class="skill-tag">verifier</span>
+        <span class="skill-tag">memory</span>
+        <span class="skill-tag">rubric</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Founder Chain -->
+  <div class="category-header reveal">
+    <span class="category-label">Category B</span>
+    <span class="category-name">Founder Workflow Chain</span>
+    <span class="category-count">4 skills · run in order</span>
+  </div>
+  <div class="chain-flow reveal">
+    <div class="chain-step">
+      <div class="chain-box">
+        <span class="chain-invoke">/market-validation</span>
+        <div class="chain-name">Market<br>Validation</div>
+      </div>
+    </div>
+    <span class="chain-arrow">→</span>
+    <div class="chain-step">
+      <div class="chain-box">
+        <span class="chain-invoke">/build-options</span>
+        <div class="chain-name">Build<br>Options</div>
+      </div>
+    </div>
+    <span class="chain-arrow">→</span>
+    <div class="chain-step">
+      <div class="chain-box">
+        <span class="chain-invoke">/prd</span>
+        <div class="chain-name">Product<br>Req Doc</div>
+      </div>
+    </div>
+    <span class="chain-arrow">→</span>
+    <div class="chain-step">
+      <div class="chain-box">
+        <span class="chain-invoke">/tasks</span>
+        <div class="chain-name">Task<br>Plan</div>
+      </div>
+    </div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <span class="skill-invoke">/market-validation</span>
+      <h3 class="skill-name">Market Validation</h3>
+      <p class="skill-desc">5-phase market research workflow: scope the question → fan-out verified web research → synthesize into deck data → Tufte HTML/PDF visualization → emit a brief. ~1.5M tokens per full run. Adversarially verified claims.</p>
+      <div class="skill-tags"><span class="skill-tag">research</span><span class="skill-tag">multi-agent</span><span class="skill-tag">MIT</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <span class="skill-invoke">/build-options</span>
+      <h3 class="skill-name">Build Options</h3>
+      <p class="skill-desc">Judge panel: generate N independent build approaches → score each → stress-test assumptions → weighted decision matrix. Math single-sourced in tested weighting.py. Produces a winner with clear trade-off documentation for the PRD handoff.</p>
+      <div class="skill-tags"><span class="skill-tag">decisions</span><span class="skill-tag">scoring</span><span class="skill-tag">MIT</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <span class="skill-invoke">/prd</span>
+      <h3 class="skill-name">Product Requirements</h3>
+      <p class="skill-desc">Generate a Product Requirements Document from validated market data and the chosen build option. Structured with objective, scope, acceptance criteria, out-of-scope items, and open questions. Feeds into /tasks.</p>
+      <div class="skill-tags"><span class="skill-tag">spec</span><span class="skill-tag">product</span><span class="skill-tag">MIT</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <span class="skill-invoke">/tasks</span>
+      <h3 class="skill-name">Task Plan</h3>
+      <p class="skill-desc">Break a PRD into a tracked, ordered task list with effort estimates, dependencies, and acceptance criteria per task. The implementation handoff from planning to building.</p>
+      <div class="skill-tags"><span class="skill-tag">execution</span><span class="skill-tag">tracking</span><span class="skill-tag">MIT</span></div>
+    </div>
+  </div>
+
+  <!-- Craft -->
+  <div class="category-header reveal">
+    <span class="category-label">Category C</span>
+    <span class="category-name">Craft</span>
+    <span class="category-count">2 skills</span>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <span class="skill-invoke">/tufte-viz</span>
+      <h3 class="skill-name">Tufte Visualization</h3>
+      <p class="skill-desc">Ideate and critique data visualizations using Edward Tufte's principles. Includes 4 working HTML demo files (GISS temperature, Kyoto sakura, sunspot butterfly, sunspot pretty) and reference docs on analytical design. Use before building any chart or dashboard.</p>
+      <div class="skill-tags"><span class="skill-tag">data viz</span><span class="skill-tag">tufte</span><span class="skill-tag">demos</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <span class="skill-invoke">/ecosystem-planning</span>
+      <h3 class="skill-name">Ecosystem Planning</h3>
+      <p class="skill-desc">Plan and sequence improvements across a multi-repo software ecosystem. Bake lessons into upstream tooling, gate on human-in-the-loop (HIL) approval, manage bring-up self-tests. Worked example from robot-md/gateway bringup included.</p>
+      <div class="skill-tags"><span class="skill-tag">multi-repo</span><span class="skill-tag">HIL</span><span class="skill-tag">upstream</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Install -->
+<section class="install-section" id="install">
+  <div class="section-header reveal">
+    <span class="section-tag">02</span>
+    <h2 class="section-title">Install &amp; use</h2>
+  </div>
+
+  <div class="surface-tabs">
+    <button class="surface-tab active" onclick="switchTab('cli', this)">Claude Code CLI</button>
+    <button class="surface-tab" onclick="switchTab('desktop', this)">Claude Desktop</button>
+    <button class="surface-tab" onclick="switchTab('api', this)">API / Agents</button>
+  </div>
+
+  <div class="surface-panel active" id="panel-cli">
+    <div>
+      <div class="install-step">
+        <div class="install-step-label"><span class="install-step-num">1</span> Download &amp; extract</div>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div>
+          </div>
+          <pre><span class="t-comment"># Download the zip and unzip it</span>
+<span class="t-prompt">$</span> <span class="t-cmd">unzip craigm26-claude-skills-*.zip</span>
+<span class="t-prompt">$</span> <span class="t-cmd">cd craigm26-skills-package</span></pre>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="install-step-label"><span class="install-step-num">2</span> Copy to skills directory</div>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div>
+          </div>
+          <pre><span class="t-comment"># Install all 10 skills at once</span>
+<span class="t-prompt">$</span> <span class="t-cmd">mkdir -p ~/.claude/skills</span>
+<span class="t-prompt">$</span> <span class="t-cmd">cp -r skills/* ~/.claude/skills/</span>
+
+<span class="t-comment"># Or install a single skill</span>
+<span class="t-prompt">$</span> <span class="t-cmd">cp -r skills/fable-loop-design ~/.claude/skills/</span></pre>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="install-step-label"><span class="install-step-num">3</span> Invoke in a session</div>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div>
+          </div>
+          <pre><span class="t-comment"># In any Claude Code session</span>
+<span class="t-ember">/fable-repo-audit</span>
+<span class="t-ember">/fable-orchestrated-feature-dev</span>
+<span class="t-ember">/fable-loop-design</span>
+<span class="t-ember">/market-validation</span>
+
+<span class="t-comment"># Verify skills are loaded</span>
+<span class="t-prompt">$</span> <span class="t-cmd">ls ~/.claude/skills/</span>
+<span class="t-out">fable-loop-design  fable-orchestrated-feature-dev</span>
+<span class="t-out">fable-org-audit    fable-repo-audit</span>
+<span class="t-out">market-validation  build-options  prd  tasks</span>
+<span class="t-out">tufte-viz          ecosystem-planning</span></pre>
+        </div>
+      </div>
+    </div>
+    <div class="install-prose">
+      <h4>Claude Code CLI is the primary surface</h4>
+      <p>Skills loaded into <code>~/.claude/skills/</code> are available as slash commands in every Claude Code session. The model reads the skill's <code>SKILL.md</code> on invocation and follows it for the remainder of the session.</p>
+      <p>Skills are <strong>session context</strong>, not persistent rules. Invoke the skill at the start of a session when you need it. You don't need to load all 10 every session — only the ones relevant to the work at hand.</p>
+      <p>For Fable 5 users: the orchestration skills (<code>/fable-orchestrated-feature-dev</code>, <code>/fable-loop-design</code>) work best in Claude Code where you can pass file paths between Fable's plan step and the implementer's execute step.</p>
+      <div class="callout">
+        Tip: The founder chain (<code>/market-validation → /build-options → /prd → /tasks</code>) is designed to run sequentially across sessions. Each skill's output is the next skill's input — save the artifacts between sessions.
+      </div>
+    </div>
+  </div>
+
+  <div class="surface-panel" id="panel-desktop">
+    <div>
+      <div class="install-step">
+        <div class="install-step-label"><span class="install-step-num">1</span> Open a skill file</div>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div>
+          </div>
+          <pre><span class="t-comment"># Find the skill you want</span>
+<span class="t-prompt">$</span> <span class="t-cmd">cat skills/fable-loop-design/SKILL.md</span>
+
+<span class="t-comment"># Or open it in your editor</span>
+<span class="t-prompt">$</span> <span class="t-cmd">open skills/fable-loop-design/SKILL.md</span></pre>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="install-step-label"><span class="install-step-num">2</span> Paste into Custom Instructions</div>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div>
+          </div>
+          <pre><span class="t-gold">Claude Desktop</span>
+<span class="t-comment">Settings → Custom Instructions (or System Prompt)</span>
+<span class="t-comment">Paste the full SKILL.md content there.</span>
+
+<span class="t-comment">Or use it as a conversation starter:</span>
+<span class="t-out">"Here is a skill I want you to follow:</span>
+<span class="t-out">[paste SKILL.md content]</span>
+<span class="t-out">Now help me audit this repository."</span></pre>
+        </div>
+      </div>
+    </div>
+    <div class="install-prose">
+      <h4>Claude Desktop — best for single skills</h4>
+      <p>Claude Desktop doesn't have native slash-command skill loading. Instead, paste a skill's <code>SKILL.md</code> content into your system prompt or custom instructions field.</p>
+      <p><strong>Best skills for always-on Desktop instructions:</strong></p>
+      <p><code>/fable-loop-design</code> — if you design agentic systems, this as a persistent instruction keeps the verifier sub-agent pattern and memory progression top of mind across all conversations.</p>
+      <p><code>/tufte-viz</code> — works well as a persistent instruction if you frequently discuss data visualization. The principles apply whether you're sketching charts or critiquing dashboards.</p>
+      <p><code>/market-validation</code> — useful as a persistent instruction during early-stage product research sprints when most conversations are about a market.</p>
+      <div class="callout">
+        The Fable orchestration skills (<code>fable-repo-audit</code>, <code>fable-orchestrated-feature-dev</code>) are less useful in Desktop because they rely on file system access (saving reports to <code>~/.claude/audits/</code>, passing plan file paths). Use Claude Code CLI for those.
+      </div>
+    </div>
+  </div>
+
+  <div class="surface-panel" id="panel-api">
+    <div>
+      <div class="install-step">
+        <div class="install-step-label"><span class="install-step-num">1</span> Load skill as system prompt</div>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div>
+          </div>
+          <pre><span class="t-comment">// Node.js / TypeScript</span>
+<span class="t-cmd">import</span> { readFileSync } from 'fs'
+<span class="t-cmd">import</span> Anthropic from '@anthropic-ai/sdk'
+
+<span class="t-cmd">const</span> skill = readFileSync(
+  'skills/fable-repo-audit/SKILL.md', 'utf8'
+)
+
+<span class="t-cmd">const</span> client = <span class="t-cmd">new</span> Anthropic()
+<span class="t-cmd">const</span> msg = <span class="t-cmd">await</span> client.messages.create({
+  model: <span class="t-out">'claude-fable-5'</span>,
+  max_tokens: 8192,
+  system: skill,
+  messages: [{
+    role: <span class="t-out">'user'</span>,
+    content: <span class="t-out">'Audit the repo at /path/to/repo'</span>
+  }]
+})</pre>
+        </div>
+      </div>
+    </div>
+    <div class="install-prose">
+      <h4>Claude API — inject as system prompt</h4>
+      <p>Skills are plain markdown — load any <code>SKILL.md</code> as a string and pass it as the <code>system</code> prompt in your API call. The model treats it as its operating instructions for the session.</p>
+      <p>For multi-agent pipelines: use <code>/fable-loop-design</code> to design the loop structure, then hard-code the rubric and verifier pattern directly in your Agent() calls rather than loading the skill at runtime — the skill is a design guide, not a runtime dependency.</p>
+      <p>The <code>fable-orchestrated-feature-dev</code> skill's model routing logic (Opus vs Sonnet vs Codex based on token budget) is useful for building your own adaptive pipelines — read the <code>SKILL.md</code> for the routing decision tree.</p>
+      <div class="callout">
+        The founder chain skills (<code>market-validation</code>, <code>build-options</code>) include Python and JavaScript helper scripts in their <code>assets/</code> subdirectories — these run standalone outside the API and produce structured outputs (deck-data.json, decision matrices) that feed into subsequent API calls.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Scenarios -->
+<section class="scenarios-section" id="scenarios">
+  <div class="section-header reveal">
+    <span class="section-tag">03</span>
+    <h2 class="section-title">When to reach<br>for a skill</h2>
+  </div>
+  <div class="scenarios-grid">
+    <div class="scenario-card reveal">
+      <div class="scenario-situation">Situation</div>
+      <h3 class="scenario-title">Starting a new product idea from scratch</h3>
+      <p class="scenario-desc">You have a hypothesis but no validated market data. Run the full founder chain: research the market, score your build options against each other, write the PRD, break it into tasks.</p>
+      <div class="scenario-skills">
+        <span class="scenario-skill-badge">/market-validation</span>
+        <span class="scenario-skill-badge">/build-options</span>
+        <span class="scenario-skill-badge">/prd</span>
+        <span class="scenario-skill-badge">/tasks</span>
+      </div>
+    </div>
+    <div class="scenario-card reveal">
+      <div class="scenario-situation">Situation</div>
+      <h3 class="scenario-title">Building a significant new feature</h3>
+      <p class="scenario-desc">You know what to build but the implementation spans many files and you want a spec before touching code. Fable writes the plan, Opus or Sonnet implements it, Fable reviews the output against the spec.</p>
+      <div class="scenario-skills">
+        <span class="scenario-skill-badge">/fable-orchestrated-feature-dev</span>
+      </div>
+    </div>
+    <div class="scenario-card reveal">
+      <div class="scenario-situation">Situation</div>
+      <h3 class="scenario-title">Inheriting or committing to an unfamiliar codebase</h3>
+      <p class="scenario-desc">You need an honest, evidence-based assessment before you start changing things. Get a graded audit with severity-rated findings, an improvement strategy, and a milestone-based task plan.</p>
+      <div class="scenario-skills">
+        <span class="scenario-skill-badge">/fable-repo-audit</span>
+      </div>
+    </div>
+    <div class="scenario-card reveal">
+      <div class="scenario-situation">Situation</div>
+      <h3 class="scenario-title">Designing an agent loop or evaluation harness</h3>
+      <p class="scenario-desc">You want Fable to hillclimb on a task using a rubric rather than steering it step-by-step. Design the self-correction loop with a verifier sub-agent. The grader runs in a separate context window so it can't rationalize its prior attempt.</p>
+      <div class="scenario-skills">
+        <span class="scenario-skill-badge">/fable-loop-design</span>
+      </div>
+    </div>
+    <div class="scenario-card reveal">
+      <div class="scenario-situation">Situation</div>
+      <h3 class="scenario-title">Building multi-session memory into an agent</h3>
+      <p class="scenario-desc">You want Claude to get smarter across sessions rather than re-deriving the same conclusions. Use the memory progression: fail → investigate → verify → distill → consult. Distilled rules go to memory.md; raw failure notes stay in failures.md.</p>
+      <div class="scenario-skills">
+        <span class="scenario-skill-badge">/fable-loop-design</span>
+      </div>
+    </div>
+    <div class="scenario-card reveal">
+      <div class="scenario-situation">Situation</div>
+      <h3 class="scenario-title">Designing a data visualization or chart</h3>
+      <p class="scenario-desc">You want to communicate data clearly without chartjunk. Apply Tufte's principles before writing any chart code. Use the 4 demo HTML files (sunspot butterfly, Kyoto sakura flowering, GISS temperature) as calibration examples.</p>
+      <div class="scenario-skills">
+        <span class="scenario-skill-badge">/tufte-viz</span>
+      </div>
+    </div>
+    <div class="scenario-card reveal">
+      <div class="scenario-situation">Situation</div>
+      <h3 class="scenario-title">Improving a multi-repo ecosystem (not just one repo)</h3>
+      <p class="scenario-desc">You have lessons from one repo that should be baked upstream into a library or CLI. Plan the sequencing across repos, define HIL gates, and write a self-test that validates the improvement end-to-end.</p>
+      <div class="scenario-skills">
+        <span class="scenario-skill-badge">/ecosystem-planning</span>
+      </div>
+    </div>
+    <div class="scenario-card reveal">
+      <div class="scenario-situation">Situation</div>
+      <h3 class="scenario-title">Tokens are running low mid-week</h3>
+      <p class="scenario-desc">The fable-orchestrated-feature-dev skill has built-in token routing. It reads budget signals from context and routes implementation to Sonnet 4.6 when you're cost-conscious, or hands off to Codex /goal when tokens are exhausted.</p>
+      <div class="scenario-skills">
+        <span class="scenario-skill-badge">/fable-orchestrated-feature-dev</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Download -->
+<section id="download">
+  <div class="download-section reveal">
+    <div>
+      <h2 class="download-title">Get<br>the<br><em>skills.</em></h2>
+      <p class="download-sub">One zip, plain markdown files, no dependencies. Copy to ~/.claude/skills/ and invoke with /skill-name in any Claude Code session.</p>
+      <a class="btn-primary" href="https://github.com/craigm26/claude-skills/releases/latest" style="display:inline-flex;">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z"/></svg>
+        Download — craigm26-claude-skills-2026-06-11.zip
+      </a>
+      <div class="download-meta">
+        <div class="download-meta-item">
+          <div class="download-meta-val">10</div>
+          <div class="download-meta-key">Skills</div>
+        </div>
+        <div class="download-meta-item">
+          <div class="download-meta-val">533K</div>
+          <div class="download-meta-key">Zip size</div>
+        </div>
+        <div class="download-meta-item">
+          <div class="download-meta-val">MIT</div>
+          <div class="download-meta-key">Founder chain</div>
+        </div>
+      </div>
+    </div>
+    <div class="source-links">
+      <a class="source-link" href="https://github.com/craigm26/claude-skills" target="_blank">
+        <div class="source-link-left">
+          <span class="source-link-name">craigm26/claude-skills</span>
+          <span class="source-link-desc">Private · Fable orchestration + tufte-viz</span>
+        </div>
+        <span class="source-link-arrow">↗</span>
+      </a>
+      <a class="source-link" href="https://github.com/craigm26/founder-skills" target="_blank">
+        <div class="source-link-left">
+          <span class="source-link-name">craigm26/founder-skills</span>
+          <span class="source-link-desc">Public · MIT · market-validation → build-options → prd → tasks</span>
+        </div>
+        <span class="source-link-arrow">↗</span>
+      </a>
+      <a class="source-link" href="https://agentskills.io" target="_blank">
+        <div class="source-link-left">
+          <span class="source-link-name">agentskills.io</span>
+          <span class="source-link-desc">Skill registry · discover more community skills</span>
+        </div>
+        <span class="source-link-arrow">↗</span>
+      </a>
+      <a class="source-link" href="https://github.com/RobotRegistryFoundation/claude-code-plugins" target="_blank">
+        <div class="source-link-left">
+          <span class="source-link-name">RobotRegistryFoundation/claude-code-plugins</span>
+          <span class="source-link-desc">Plugin registry · robotics + automation ecosystem</span>
+        </div>
+        <span class="source-link-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-left">
+    <span>//</span> claude-skills · craigm26 · packaged 2026-06-11
+  </div>
+  <div class="footer-right">
+    the judgment layer on top of the execution layer
+  </div>
+</footer>
+
+<script>
+  // Tab switching
+  function switchTab(id, btn) {
+    document.querySelectorAll('.surface-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.surface-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + id).classList.add('active');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 40);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
