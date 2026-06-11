@@ -759,7 +759,7 @@
 
   <div class="hero-stats">
     <div>
-      <div class="stat-num">10</div>
+      <div class="stat-num">12</div>
       <div class="stat-label">Skills</div>
     </div>
     <div>
@@ -780,9 +780,40 @@
     <h2 class="section-title">The skills</h2>
   </div>
 
-  <!-- Fable Orchestration -->
+  <!-- Session Layer -->
   <div class="category-header reveal">
     <span class="category-label">Category A</span>
+    <span class="category-name">Session Layer</span>
+    <span class="category-count">2 skills · start here · public MIT</span>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <span class="skill-invoke">/session-start</span>
+      <h3 class="skill-name">Session<br>Start</h3>
+      <p class="skill-desc">Three AskUserQuestion prompts before any work begins: effort tier, domain, and what "done" looks like. Loads memory from prior sessions, then routes to the right skill chain. The universal entry point for any Fable 5 session — founder, developer, or researcher.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">judgment</span>
+        <span class="skill-tag">routing</span>
+        <span class="skill-tag">memory</span>
+        <span class="skill-tag">MIT</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <span class="skill-invoke">/effort</span>
+      <h3 class="skill-name">Effort<br>Tier</h3>
+      <p class="skill-desc">Single-question token budget selector. Sets Opus 4.8 / Sonnet 4.6 / Codex routing for the entire session. Every downstream skill inherits this choice — plan with the right model from the start. Call mid-session to downgrade when tokens run low.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">tokens</span>
+        <span class="skill-tag">opus</span>
+        <span class="skill-tag">sonnet</span>
+        <span class="skill-tag">MIT</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fable Orchestration -->
+  <div class="category-header reveal">
+    <span class="category-label">Category B</span>
     <span class="category-name">Fable 5 Orchestration</span>
     <span class="category-count">4 skills</span>
   </div>
@@ -833,11 +864,27 @@
     </div>
   </div>
 
-  <!-- Founder Chain -->
+  <!-- Workflow Chain -->
   <div class="category-header reveal">
-    <span class="category-label">Category B</span>
-    <span class="category-name">Founder Workflow Chain</span>
-    <span class="category-count">4 skills · run in order</span>
+    <span class="category-label">Category C</span>
+    <span class="category-name">Workflow Chain</span>
+    <span class="category-count">4 skills · run in order · public MIT</span>
+  </div>
+  <div class="chain-flow reveal" style="margin-bottom:12px">
+    <div class="chain-step">
+      <div class="chain-box" style="border-color:var(--ember);background:rgba(255,107,43,0.06)">
+        <span class="chain-invoke" style="color:var(--ember)">/session-start</span>
+        <div class="chain-name">Session<br>Calibrate</div>
+      </div>
+    </div>
+    <span class="chain-arrow">→</span>
+    <div class="chain-step">
+      <div class="chain-box" style="border-color:var(--ember);background:rgba(255,107,43,0.06)">
+        <span class="chain-invoke" style="color:var(--ember)">/effort</span>
+        <div class="chain-name">Token<br>Budget</div>
+      </div>
+    </div>
+    <span class="chain-arrow">→</span>
   </div>
   <div class="chain-flow reveal">
     <div class="chain-step">
@@ -897,7 +944,7 @@
 
   <!-- Craft -->
   <div class="category-header reveal">
-    <span class="category-label">Category C</span>
+    <span class="category-label">Category D</span>
     <span class="category-name">Craft</span>
     <span class="category-count">2 skills</span>
   </div>
@@ -1025,9 +1072,10 @@
       <h4>Claude Desktop — best for single skills</h4>
       <p>Claude Desktop doesn't have native slash-command skill loading. Instead, paste a skill's <code>SKILL.md</code> content into your system prompt or custom instructions field.</p>
       <p><strong>Best skills for always-on Desktop instructions:</strong></p>
+      <p><code>/session-start</code> — paste this as a persistent instruction so every new conversation opens with the three calibration questions. Works on any surface.</p>
+      <p><code>/effort</code> — add alongside session-start so the model always asks about token budget before spending any. Lightweight and universally useful.</p>
       <p><code>/fable-loop-design</code> — if you design agentic systems, this as a persistent instruction keeps the verifier sub-agent pattern and memory progression top of mind across all conversations.</p>
       <p><code>/tufte-viz</code> — works well as a persistent instruction if you frequently discuss data visualization. The principles apply whether you're sketching charts or critiquing dashboards.</p>
-      <p><code>/market-validation</code> — useful as a persistent instruction during early-stage product research sprints when most conversations are about a market.</p>
       <div class="callout">
         The Fable orchestration skills (<code>fable-repo-audit</code>, <code>fable-orchestrated-feature-dev</code>) are less useful in Desktop because they rely on file system access (saving reports to <code>~/.claude/audits/</code>, passing plan file paths). Use Claude Code CLI for those.
       </div>
@@ -1082,6 +1130,15 @@
     <h2 class="section-title">When to reach<br>for a skill</h2>
   </div>
   <div class="scenarios-grid">
+    <div class="scenario-card reveal">
+      <div class="scenario-situation">Situation</div>
+      <h3 class="scenario-title">Starting any new session — calibrate first</h3>
+      <p class="scenario-desc">Before any work begins: three structured questions establish effort tier, goal, and skill routing. Surfaces pending memory from prior sessions. Prevents an hour of wrong-direction work in 30 seconds.</p>
+      <div class="scenario-skills">
+        <span class="scenario-skill-badge">/session-start</span>
+        <span class="scenario-skill-badge">/effort</span>
+      </div>
+    </div>
     <div class="scenario-card reveal">
       <div class="scenario-situation">Situation</div>
       <h3 class="scenario-title">Starting a new product idea from scratch</h3>
