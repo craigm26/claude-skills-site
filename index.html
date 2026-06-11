@@ -819,7 +819,7 @@
     <div class="skill-card reveal">
       <span class="skill-invoke">/session-start</span>
       <h3 class="skill-name">Session<br>Start</h3>
-      <p class="skill-desc">Three AskUserQuestion prompts before any work begins: effort tier, domain, and what "done" looks like. Loads memory from prior sessions, then routes to the right skill chain. The universal entry point for any Fable 5 session — founder, developer, or researcher.</p>
+      <p class="skill-desc">Stop losing the first hour to wrong-direction work. Three AskUserQuestion prompts before anything starts — effort tier, domain, what "done" looks like — then it loads memory from prior sessions and routes you to the right skill chain. The universal entry point for any Fable 5 session.</p>
       <div class="skill-tags">
         <span class="skill-tag">judgment</span>
         <span class="skill-tag">routing</span>
@@ -830,7 +830,7 @@
     <div class="skill-card reveal">
       <span class="skill-invoke">/effort</span>
       <h3 class="skill-name">Effort<br>Tier</h3>
-      <p class="skill-desc">Single-question token budget selector. Sets Opus 4.8 / Sonnet 4.6 routing for the entire session — with an external-executor fallback when tokens run low. Every downstream skill inherits this choice; call mid-session to downgrade.</p>
+      <p class="skill-desc">Make your token budget a decision instead of an accident. One question sets Opus 4.8 / Sonnet 4.6 routing for the entire session — with an external-executor fallback when tokens run low — and maps onto the API's effort levels and Task Budgets when you need per-request control. Call mid-session to downgrade.</p>
       <div class="skill-tags">
         <span class="skill-tag">tokens</span>
         <span class="skill-tag">opus</span>
@@ -850,7 +850,7 @@
     <div class="skill-card reveal">
       <span class="skill-invoke">/fable-orchestrated-feature-dev</span>
       <h3 class="skill-name">Orchestrated<br>Feature Dev</h3>
-      <p class="skill-desc">Fable writes a detailed plan to a .md file. A capable model (Opus 4.8 or Sonnet 4.6) implements it exactly. Fable reviews the output against the spec, and hands the plan file to an external executor when tokens are exhausted. Fable never writes implementation code.</p>
+      <p class="skill-desc">Ship features to spec, not to vibes. Fable writes a detailed plan file, a capable model (Opus 4.8 / Sonnet 4.6) implements it exactly, Fable reviews against the spec. The plan's acceptance criteria double as a Managed Agents Outcome rubric for unattended hosted runs. Fable never writes implementation code.</p>
       <div class="skill-tags">
         <span class="skill-tag">planning</span>
         <span class="skill-tag">implementation</span>
@@ -861,7 +861,7 @@
     <div class="skill-card reveal">
       <span class="skill-invoke">/fable-repo-audit</span>
       <h3 class="skill-name">Repository<br>Audit</h3>
-      <p class="skill-desc">4-phase principal-level audit: discovery and mapping → evidence-based findings with severity ratings → improvement strategy → task plan with milestones and effort estimates. Output saved to ~/.claude/audits/. Grounded in file paths and line numbers.</p>
+      <p class="skill-desc">Know exactly what you're walking into before a refactor, an onboarding, or a deal. 4-phase principal-level audit: discovery → severity-rated findings grounded in file:line evidence → strategy → milestone task plan. Refusal-aware on security-adjacent code (Fable 5's classifiers can false-positive — the audit reports it, never silently skips).</p>
       <div class="skill-tags">
         <span class="skill-tag">audit</span>
         <span class="skill-tag">architecture</span>
@@ -872,7 +872,7 @@
     <div class="skill-card reveal">
       <span class="skill-invoke">/fable-org-audit</span>
       <h3 class="skill-name">Org Integration<br>Audit</h3>
-      <p class="skill-desc">Live integration audit for a platform organization: probes the platform’s real APIs across 8 dimensions, grades each 🟢 🟡 🔴 ⚫, and produces a prioritized gap list. Memory accumulates verified org patterns across runs. Built against a specific stack (PlatAtlas); the audit pattern is portable.</p>
+      <p class="skill-desc">Catch silent customer-integration failures before the demo, not during it. Probes your platform's real APIs across 8 dimensions, grades each 🟢 🟡 🔴 ⚫, produces a prioritized gap list — and runs itself weekly via /schedule routines or CMA scheduled deployments, getting smarter each run through memory. Built against a specific stack (PlatAtlas); the pattern is portable.</p>
       <div class="skill-tags">
         <span class="skill-tag">portable pattern</span>
         <span class="skill-tag">health check</span>
@@ -883,7 +883,7 @@
     <div class="skill-card reveal">
       <span class="skill-invoke">/fable-loop-design</span>
       <h3 class="skill-name">Loop<br>Design</h3>
-      <p class="skill-desc">Design self-correction loops using a rubric and an independent verifier sub-agent (not self-critique — the grader runs in a fresh context window). Cross-session memory progression: fail → investigate → verify → distill → consult. Based on Anthropic's internal Fable 5 research.</p>
+      <p class="skill-desc">Your agent stops at "done", not "good enough". Rubric-graded self-correction loops with an independent verifier sub-agent — Anthropic's documented best practice ("verifier sub-agents tend to outperform self-critique") — built on /goal, /loop, and Managed Agents Outcomes. Cross-session memory progression: fail → investigate → verify → distill → consult.</p>
       <div class="skill-tags">
         <span class="skill-tag">self-correction</span>
         <span class="skill-tag">verifier</span>
@@ -966,7 +966,7 @@
     <div class="skill-card reveal">
       <span class="skill-invoke">/tasks</span>
       <h3 class="skill-name">Task Plan</h3>
-      <p class="skill-desc">Break a PRD into a tracked, ordered task list with effort estimates, dependencies, and acceptance criteria per task. The implementation handoff from planning to building.</p>
+      <p class="skill-desc">Your plan executes without you in the loop. Breaks a PRD into ordered tasks where every acceptance criterion is a boolean check an agent can verify alone — which means the criteria export directly as a Managed Agents Outcome rubric. The handoff from planning to autonomous building.</p>
       <div class="skill-tags"><span class="skill-tag">execution</span><span class="skill-tag">tracking</span><span class="skill-tag">MIT</span><span class="skill-tag">installable</span></div>
     </div>
   </div>
