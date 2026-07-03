@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Claude Skills — craigm26</title>
-<meta name="description" content="10 Claude skills for Fable 5 orchestration, founder workflows, data visualization, and ecosystem planning.">
+<meta name="description" content="15 Claude skills for Fable 5 orchestration, founder workflows, data visualization, ecosystem planning, and marketplace maintainer tooling.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -746,25 +746,25 @@
   <p class="hero-eyebrow">// claude skills · craigm26 · 2026</p>
   <h1 class="hero-title">The<br><em>judgment</em><br>layer.</h1>
   <p class="hero-body">
-    12 Claude skills for Fable 5 orchestration, founder workflows, and craft —
-    all 12 installable today via the founder-skills plugin marketplace.
+    15 Claude skills for Fable 5 orchestration, founder workflows, craft, and maintainer tooling —
+    all 15 installable today via the founder-skills plugin marketplace.
     Skills sit above Anthropic's execution primitives — workflows, subagents, structured questions —
     encoding when to use them, which model to route to, and how to structure the work.
   </p>
   <div class="hero-actions">
     <a class="btn-primary" href="https://craigm26.github.io/founder-skills/">
-      Install all 12 →
+      Install all 15 →
     </a>
     <a class="btn-ghost" href="#skills">Browse skills →</a>
   </div>
 
   <div class="hero-stats">
     <div>
-      <div class="stat-num">12</div>
+      <div class="stat-num">15</div>
       <div class="stat-label">Skills</div>
     </div>
     <div>
-      <div class="stat-num">12</div>
+      <div class="stat-num">15</div>
       <div class="stat-label">Installable today</div>
     </div>
     <div>
@@ -991,6 +991,48 @@
       <div class="skill-tags"><span class="skill-tag">multi-repo</span><span class="skill-tag">HIL</span><span class="skill-tag">upstream</span><span class="skill-tag">installable</span></div>
     </div>
   </div>
+
+  <!-- Maintainer Tooling -->
+  <div class="category-header reveal">
+    <span class="category-label">Category E</span>
+    <span class="category-name">Maintainer Tooling</span>
+    <span class="category-count">3 skills · for marketplace maintainers · installable today · MIT</span>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <span class="skill-invoke">/skill-style-guide</span>
+      <h3 class="skill-name">Skill<br>Style Guide</h3>
+      <p class="skill-desc">Make every skill in your marketplace read like one author wrote it. A written house style for SKILL.md files — frontmatter rules, trigger-rich descriptions, two body skeletons, a six-section README template — enforced as a 16-item conformance checklist. Calibrates against your own golden set, not the source repo. A reference-and-checklist skill: docs-led, low spend, no subagents.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">house style</span>
+        <span class="skill-tag">checklist</span>
+        <span class="skill-tag">docs-led</span>
+        <span class="skill-tag">MIT</span><span class="skill-tag">installable</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <span class="skill-invoke">/skill-release-gate</span>
+      <h3 class="skill-name">Release<br>Gate</h3>
+      <p class="skill-desc">When your default branch is the release, gate it before you push. A moment-of-push runbook for marketplace maintainers: test suites, manifest JSON parse, sanitization grep, gitignore-swallow check, optional live-URL sweep — plus version-bump discipline and installed-cache desync handling. Every gate exists because skipping it once shipped a real defect. Ends in one safe-to-push / do-not-push verdict.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">pre-push</span>
+        <span class="skill-tag">runbook</span>
+        <span class="skill-tag">versioning</span>
+        <span class="skill-tag">MIT</span><span class="skill-tag">installable</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <span class="skill-invoke">/skill-freshness-watch</span>
+      <h3 class="skill-name">Freshness<br>Watch</h3>
+      <p class="skill-desc">Live marketplaces go stale quietly. A recurring, read-only drift sweep across six check classes — hardcoded model IDs after a new model ships, quietly graduated beta claims, dead cited URLs, installed-cache desync, sibling-repo divergence — each reported OK-with-evidence or [ATTENTION] with file:line. Hands every fix to your own change process; skipped checks are marked skipped, never silently passed.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">drift</span>
+        <span class="skill-tag">read-only</span>
+        <span class="skill-tag">sweep</span>
+        <span class="skill-tag">MIT</span><span class="skill-tag">installable</span>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Install -->
@@ -1019,16 +1061,17 @@
         </div>
       </div>
       <div class="install-step">
-        <div class="install-step-label"><span class="install-step-num">2</span> Install the twelve</div>
+        <div class="install-step-label"><span class="install-step-num">2</span> Install the fifteen</div>
         <div class="terminal">
           <div class="terminal-bar">
             <div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div>
           </div>
-          <pre><span class="t-comment"># All 12, one loop</span>
+          <pre><span class="t-comment"># All 15, one loop</span>
 <span class="t-cmd">for s in session-start effort market-validation \
   build-options prd tasks fable-orchestrated-feature-dev \
   fable-repo-audit fable-org-audit fable-loop-design \
-  tufte-viz ecosystem-planning; do</span>
+  tufte-viz ecosystem-planning skill-style-guide \
+  skill-release-gate skill-freshness-watch; do</span>
 <span class="t-ember">  /plugin install ${s}@founder-skills</span>
 <span class="t-cmd">done</span></pre>
         </div>
@@ -1055,7 +1098,7 @@
     </div>
     <div class="install-prose">
       <h4>Claude Code CLI is the primary surface</h4>
-      <p>All twelve ship as Claude Code <a href="https://code.claude.com/docs/en/plugins" style="color:var(--blue);">plugins</a> via the <a href="https://code.claude.com/docs/en/plugin-marketplaces" style="color:var(--blue);">plugin marketplace</a> — one command to add, one per skill to install. The model reads the skill's <code>SKILL.md</code> on invocation and follows it for the remainder of the session.</p>
+      <p>All fifteen ship as Claude Code <a href="https://code.claude.com/docs/en/plugins" style="color:var(--blue);">plugins</a> via the <a href="https://code.claude.com/docs/en/plugin-marketplaces" style="color:var(--blue);">plugin marketplace</a> — one command to add, one per skill to install. The model reads the skill's <code>SKILL.md</code> on invocation and follows it for the remainder of the session.</p>
       <p>Skills are <strong>session context</strong>, not persistent rules. Invoke a skill at the start of a session when you need it — only the ones relevant to the work at hand.</p>
       <p>Per-skill walkthroughs (what each asks, what it produces, what it costs) live on the <a href="https://craigm26.github.io/founder-skills/" style="color:var(--blue);">founder-skills site</a>.</p>
       <div class="callout">
@@ -1240,13 +1283,13 @@
   <div class="download-section reveal">
     <div>
       <h2 class="download-title">Get<br>the<br><em>skills.</em></h2>
-      <p class="download-sub">All twelve install in one command each via the Claude Code plugin marketplace — plain markdown skills, no dependencies.</p>
+      <p class="download-sub">All fifteen install in one command each via the Claude Code plugin marketplace — plain markdown skills, no dependencies.</p>
       <a class="btn-primary" href="https://craigm26.github.io/founder-skills/" style="display:inline-flex;">
         Install via marketplace →
       </a>
       <div class="download-meta">
         <div class="download-meta-item">
-          <div class="download-meta-val">12</div>
+          <div class="download-meta-val">15</div>
           <div class="download-meta-key">Installable</div>
         </div>
         <div class="download-meta-item">
@@ -1270,7 +1313,7 @@
       <a class="source-link" href="https://github.com/craigm26/founder-skills" target="_blank">
         <div class="source-link-left">
           <span class="source-link-name">craigm26/founder-skills</span>
-          <span class="source-link-desc">Public · MIT · all 12 skills + the marketplace</span>
+          <span class="source-link-desc">Public · MIT · all 15 skills + the marketplace</span>
         </div>
         <span class="source-link-arrow">↗</span>
       </a>
